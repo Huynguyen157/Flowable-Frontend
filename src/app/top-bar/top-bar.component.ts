@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent {
-
+  flowableLogo = 'images/flowable-logo.png';
+  flowaleLogo2x = 'images/flowable-logo@2x.png';
 }
