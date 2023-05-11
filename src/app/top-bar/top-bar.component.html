@@ -1,7 +1,7 @@
 <div class="navbar navbar-fixed-top navbar-inverse" role="navigation" id="main-header">
   <div class="fixed-container">
       <div class="navbar-header">
-          <a ng-click="backToLanding()" class="landing-logo" ng-if="account != null && account != undefined" title="">
+          <a (click)="backToLanding()" class="landing-logo" ng-if="account != null && account != undefined" title="">
             <!-- {{'GENERAL.MAIN-TITLE' | translate}} -->
               <img [src]="flowableLogo" srcset="images/flowable-logo.png 1x, images/flowable-logo@2x.png 2x">
           </a>

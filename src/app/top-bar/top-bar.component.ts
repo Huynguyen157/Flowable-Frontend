@@ -8,4 +8,7 @@ import { Component } from '@angular/core';
 export class TopBarComponent {
   flowableLogo = 'images/flowable-logo.png';
   flowaleLogo2x = 'images/flowable-logo@2x.png';
+  backToLanding():void{
+
+  }
 }
