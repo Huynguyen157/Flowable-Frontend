@@ -270,7 +270,7 @@ button.btn.btn-danger {
 }
 
 .content.split {
-    background: transparent url('../../images/line-1px.png') repeat-y 60% 0;
+    background: transparent url('src/assets/images/line-1px.png') repeat-y 60% 0;
 }
 
 .content .split-left {
@@ -1685,7 +1685,7 @@ h3+div > .dropzone {
 .modal-backdrop {
     background-color: #999999; /** Non alpha-supporting browser fallback */
     background-color: rgba(100, 100, 100, .75);
-    background-image: url('../../images/glasspane.png');
+    background-image: url('src/assets/images/glasspane.png');
 }
 .modal-content {
     -webkit-border-radius: 0;

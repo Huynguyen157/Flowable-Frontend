@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -8,7 +7,10 @@ import { UpgradeModule} from '@angular/upgrade/static';
 import { EditControllerComponent } from './edit-controller/edit-controller.component';
 import { EditUnsavedChangesPopupCtrlComponent } from './edit-unsaved-changes-popup-ctrl/edit-unsaved-changes-popup-ctrl.component';
 import { FormBuilderControllerComponent } from './form-builder-controller/form-builder-controller.component';
-
+import { HttpClientModule , HttpClient} from '@angular/common/http';
+import { TranslateModule, TranslateLoader }from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslationService } from './translation.service';
 
 @NgModule({
   declarations: [
@@ -16,14 +18,25 @@ import { FormBuilderControllerComponent } from './form-builder-controller/form-b
     TopBarComponent,
     EditControllerComponent,
     EditUnsavedChangesPopupCtrlComponent,
-    FormBuilderControllerComponent
+    FormBuilderControllerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    UpgradeModule
+    UpgradeModule,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: (http: HttpClient) => new TranslateHttpLoader(http, './assets/i18n/', '.json'),
+          deps: [HttpClient]
+      }
+   }),
+
   ],
-  providers: [],
+  providers: [
+    {provide: TranslationService,useClass: TranslationService}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
