@@ -664,7 +664,7 @@ table.history tr.current td {
 }
 
 .has-line {
-	background: transparent url('../images/line.png') repeat-y center top;
+	background: transparent url('src/assets/images/line.png') repeat-y center top;
 }
 
 .step .form-group {

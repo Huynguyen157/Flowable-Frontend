@@ -5,19 +5,19 @@ import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
 import { UpgradeModule} from '@angular/upgrade/static';
 import { EditControllerComponent } from './edit-controller/edit-controller.component';
-import { EditUnsavedChangesPopupCtrlComponent } from './edit-unsaved-changes-popup-ctrl/edit-unsaved-changes-popup-ctrl.component';
 import { FormBuilderControllerComponent } from './form-builder-controller/form-builder-controller.component';
 import { HttpClientModule , HttpClient} from '@angular/common/http';
 import { TranslateModule, TranslateLoader }from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslationService } from './translation.service';
+import { StencilControllerComponent } from './stencil-controller/stencil-controller.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TopBarComponent,
+    StencilControllerComponent,
     EditControllerComponent,
-    EditUnsavedChangesPopupCtrlComponent,
     FormBuilderControllerComponent,
   ],
   imports: [

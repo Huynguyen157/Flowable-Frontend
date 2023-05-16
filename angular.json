@@ -31,7 +31,7 @@
               "src/styles"
             ],
             "styles": [
-              "src/libs/bootstrap_3.1.1/css/bootstrap.min.css",
+
               "src/styles.css",
               "src/styles/common/style.css",
               "src/libs/ui-grid_3.0.0/ui-grid.css",
@@ -43,8 +43,8 @@
               "src/editor-app/css/style.css",
               "src/styles/common/style.css",
               "src/styles/common/style-retina.css",
-              "src/styles/style-editor.css"
-
+              "src/styles/style-editor.css",
+              "src/libs/bootstrap_3.1.1/css/bootstrap.min.css"
             ],
             "scripts": [
               "src/display/jquery.qtip.min.js",
@@ -184,8 +184,6 @@
               "src/scripts/common/services/recursion-helper.js",
               "src/scripts/common/controllers/about.js",
               "src/scripts/resource-loader.js"
-
-
             ]
           },
           "configurations": {
@@ -253,7 +251,7 @@
               "src/assets/images"
             ],
             "styles": [
-              "src/libs/bootstrap_3.1.1/css/bootstrap.min.css",
+
               "src/styles.css",
               "src/styles/common/style.css",
               "src/libs/ui-grid_3.0.0/ui-grid.css",
@@ -265,7 +263,8 @@
               "src/editor-app/css/style.css",
               "src/styles/common/style.css",
               "src/styles/common/style-retina.css",
-              "src/styles/style-editor.css"
+              "src/styles/style-editor.css",
+              "src/libs/bootstrap_3.1.1/css/bootstrap.min.css"
             ],
             "scripts": [
               "src/libs/es5-shim-15.3.4.5/es5-shim.js",

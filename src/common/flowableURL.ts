@@ -8,6 +8,16 @@ FLOWABLE.CONFIG = {
   'webContextRoot' : pathname,
   'datesLocalization' : false
 };
+FLOWABLE.UI_CONFIG = {
+  'showRemovedProperties' : false
+};
+
+FLOWABLE.HEADER_CONFIG = {
+  'showAppTitle' : true,
+  'showHeaderMenu' : true,
+  'showMainNavigation' : true,
+  'showPageHeader' : true
+};
 
 FLOWABLE.APP_URL = {
   /* ACCOUNT URLS */
@@ -100,4 +110,7 @@ FLOWABLE.URL = {
   validateModel: ()=>FLOWABLE.CONFIG.contextModelerRestRoot + '/rest/model/validate'
 }
 
+
+
 export default FLOWABLE;
+

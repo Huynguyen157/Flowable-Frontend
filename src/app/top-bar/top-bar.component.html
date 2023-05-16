@@ -6,30 +6,30 @@
 
               <img [src]="flowableLogo" srcset="./assets/images/flowable-logo.png 1x, ./assets/images/flowable-logo@2x.png 2x">
           </a>
-          <ul class="nav navbar-nav" id="main-nav" ng-show="authenticated">
+          <ul class="nav navbar-nav" id="main-nav" *ngIf="authenticated">
             <li ngClass="{'active' : item.id == mainPage.id}" *ngFor="let item of mainNavigation">
               <a (click)="setMainPage(item)">{{item.title | translate}}</a>
           </li>
           </ul>
       </div>
-      <!-- <div class="pull-right {{currentAppDefinition.definition.theme}}"
-                 ng-class="{'app-indicator': currentAppDefinition}" ng-if="authenticated" ng-cloack>
+      <div class="pull-right {{currentAppDefinition.definition.theme}}"
+                 ngClass="{'app-indicator': currentAppDefinition}" *ngIf="authenticated" ng-cloack>
                 <span ng-if="currentAppDefinition.definition.theme">
                     {{currentAppDefinition.name}}
                 </span>
                 <i class="glyphicon {{currentAppDefinition.definition.icon}}"></i>
 
-                <div class="dropdown btn-group btn-group-sm" activiti-fix-dropdown-bug>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <div class="dropdown btn-group btn-group-sm"  [class.open] = "isOpenDropdown" (click)="isOpenDropdown = !isOpenDropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle" >
                     	{{account.firstName && account.firstName != 'null' ? account.firstName : ''}} {{account.lastName && account.lastName != 'null' ? account.lastName : ''}}
                         <span class="glyphicon glyphicon-chevron-down" style="font-size: 10px" aria-hidden="true"></span>
                     </button>
                     <ul class="dropdown-menu pull-right">
-                        <li><a href="" ng-click="backToLanding()" translate>GENERAL.ACTION.DASHBOARD</a></li>
-                        <li><a href="" ng-click="logout()" translate>GENERAL.ACTION.LOGOUT</a></li>
+                        <li><a href="" (click)="backToLanding()" translate>GENERAL.ACTION.DASHBOARD</a></li>
+                        <li><a href="" (click)="logout()" translate>GENERAL.ACTION.LOGOUT</a></li>
                     </ul>
                 </div>
-            </div> -->
+            </div>
   </div>
 </div>
 
