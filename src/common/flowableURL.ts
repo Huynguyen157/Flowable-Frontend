@@ -111,6 +111,113 @@ FLOWABLE.URL = {
 }
 
 
+FLOWABLE.eventBus = {
+
+  /** Event fired when the editor is loaded and ready */
+  EVENT_TYPE_EDITOR_READY: 'event-type-editor-ready',
+  EVENT_TYPE_EDITOR_BOOTED: 'event-type-editor-booted',
+  /** Event fired when a selection is made on the canvas. */
+  EVENT_TYPE_SELECTION_CHANGE: 'event-type-selection-change',
+  /** Event fired when a toolbar button has been clicked. */
+  EVENT_TYPE_TOOLBAR_BUTTON_CLICKED: 'event-type-toolbar-button-clicked',
+  /** Event fired when a stencil item is dropped on the canvas. */
+  EVENT_TYPE_ITEM_DROPPED: 'event-type-item-dropped',
+  /** Event fired when a property value is changed. */
+  EVENT_TYPE_PROPERTY_VALUE_CHANGED: 'event-type-property-value-changed',
+  /** Event fired on double click in canvas. */
+  EVENT_TYPE_DOUBLE_CLICK: 'event-type-double-click',
+  /** Event fired on a mouse out */
+  EVENT_TYPE_MOUSE_OUT: 'event-type-mouse-out',
+  /** Event fired on a mouse over */
+  EVENT_TYPE_MOUSE_OVER: 'event-type-mouse-over',
+  /** Event fired when a model is saved. */
+  EVENT_TYPE_MODEL_SAVED: 'event-type-model-saved',
+  /** Event fired when the quick menu buttons should be hidden. */
+  EVENT_TYPE_HIDE_SHAPE_BUTTONS: 'event-type-hide-shape-buttons',
+  /** Event fired when the validation popup should be shown. */
+  EVENT_TYPE_SHOW_VALIDATION_POPUP: 'event-type-show-validation-popup',
+  /** Event fired when a different process must be loaded. */
+  EVENT_TYPE_NAVIGATE_TO_PROCESS: 'event-type-navigate-to-process',
+  EVENT_TYPE_UNDO_REDO_RESET : 'event-type-undo-redo-reset',
+  /** A mapping for storing the listeners*/
+  listeners: {},
+  /** The Oryx editor, which is stored locally to send events to */
+  editor: null,
+  /**
+   * Add an event listener to the event bus, listening to the event with the provided type.
+   * Type and callback are mandatory parameters.
+   *
+   * Provide scope parameter if it is important that the callback is executed
+   * within a specific scope.
+   */
+  addListener(type: any, callback : any, scope : any) {
+
+      // Add to the listeners map
+      if (typeof this.listeners[type] !== "undefined") {
+          this.listeners[type].push({scope: scope, callback: callback});
+      } else {
+          this.listeners[type] = [
+              {scope: scope, callback: callback}
+          ];
+      }
+  },
+
+  /**
+   * Removes the provided event listener.
+   */
+  removeListener(type : any, callback : any, scope : any) {
+      if (typeof this.listeners[type] != "undefined") {
+          let numOfCallbacks = this.listeners[type].length;
+          let newArray = [];
+          for (let i = 0; i < numOfCallbacks; i++) {
+              let listener = this.listeners[type][i];
+              if (listener.scope === scope && listener.callback === callback) {
+                  // Do nothing, this is the listener and doesn't need to survive
+              } else {
+                  newArray.push(listener);
+              }
+          }
+          this.listeners[type] = newArray;
+      }
+  },
+
+  hasListener(type : any, callback : any, scope : any) {
+      if(typeof this.listeners[type] != "undefined") {
+          let numOfCallbacks = this.listeners[type].length;
+          if(callback === undefined && scope === undefined){
+              return numOfCallbacks > 0;
+          }
+          for(let i=0; i<numOfCallbacks; i++) {
+              let listener = this.listeners[type][i];
+              if(listener.scope == scope && listener.callback == callback) {
+                  return true;
+              }
+          }
+      }
+      return false;
+  },
+
+  /**
+   * Dispatch an event to all event listeners registered to that specific type.
+   */
+  dispatch(type: any, event: any) {
+      if(typeof this.listeners[type] != "undefined") {
+          let numOfCallbacks = this.listeners[type].length;
+          for(let i=0; i<numOfCallbacks; i++) {
+              let listener = this.listeners[type][i];
+              if(listener && listener.callback) {
+                  listener.callback.apply(listener.scope, [event]);
+              }
+          }
+      }
+  },
+
+  dispatchOryxEvent(event : any, uiObject: any) {
+      FLOWABLE.eventBus.editor.handleEvents(event, uiObject);
+  }
+
+};
+
 
 export default FLOWABLE;
 
