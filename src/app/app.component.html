@@ -15,6 +15,6 @@
   </div>
 </div>
 
-<div id="main" class="wrapper full clearfix" ng-view="" ng-cloak ng-style="{height: window.height + 'px'}">
-  <!-- <app-edit-controller></app-edit-controller> -->
+<div id="main" class="wrapper full clearfix" ng-view="" ng-cloak [ngStyle]="{height: window.innerHeight  + 'px'}">
+  <app-edit-controller></app-edit-controller>
 </div>

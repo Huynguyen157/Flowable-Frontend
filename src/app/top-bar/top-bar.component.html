@@ -14,7 +14,7 @@
       </div>
       <div class="pull-right {{currentAppDefinition.definition.theme}}"
                  ngClass="{'app-indicator': currentAppDefinition}" *ngIf="authenticated" ng-cloack>
-                <span ng-if="currentAppDefinition.definition.theme">
+                <span *ngIf="currentAppDefinition.definition.theme">
                     {{currentAppDefinition.name}}
                 </span>
                 <i class="glyphicon {{currentAppDefinition.definition.icon}}"></i>
