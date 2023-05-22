@@ -11,6 +11,7 @@ import FLOWABLE from 'src/assets/common/flowableURL';
 import { editorManager } from '../editorManager.service';
 import ORYX from 'src/assets/common/config';
 import { any } from '@uirouter/core';
+import { defer, Observable, Subscription } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
@@ -47,12 +48,15 @@ export class EditControllerComponent {
   treeViewHeight: any;
   editorHistory: any = [];
   resourceId: any;
+  modelData: any;
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
     private editorManagers: editorManager
   ) {}
-  ngOnInit() {}
+  ngOnInit() {
+    // this.editorFlowable();
+  }
   ngAfterViewInit() {
     const oryxButtons =
       this.elementRef.nativeElement.querySelectorAll('.Oryx_button');
@@ -60,6 +64,12 @@ export class EditControllerComponent {
       this.renderer.setStyle(button, 'display', 'none');
     });
   }
+
+  editorFactory = defer(() => {
+    return new Observable((subscriber) => {
+      subscriber.complete();
+    });
+  });
   @HostListener('window:click', ['$event']) onClick(event: any) {}
   @HostListener('window:resize', ['$event'])
   onResize(event: any) {
@@ -322,18 +332,19 @@ export class EditControllerComponent {
       //       clearTimeout($this.data('scrollTimeout'));
       //     }
       //     $this.data('scrollTimeout', setTimeout(callback, 50, self));
-      //   });
+      //   })
       // };
 
-      // FLOWABLE.eventBus.addListener(
-      //   'ORYX-EDITOR-LOADED',
-      //   () => {
-      //     this.editorFactory.resolve();
-      //     this.editorInitialized = true;
-      //     this.modelData = this.editorManagers.getBaseModelData();
-      //   },
-      //   $rootScope
-      // );
+      FLOWABLE.eventBus.addListener(
+        'ORYX-EDITOR-LOADED',
+        () => {
+          this.editorFactory.subscribe();
+          this.editorInitialized = true;
+          this.modelData = this.editorManagers.getBaseModelData();
+          this.editorManagers.setModel(this.modelData);
+        },
+        this
+      );
 
       // FLOWABLE.eventBus.addListener(
       //   FLOWABLE.eventBus.EVENT_TYPE_EDITOR_READY,

@@ -11,6 +11,7 @@ import { TranslateModule, TranslateLoader }from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslationService } from './translation.service';
 import { StencilControllerComponent } from './stencil-controller/stencil-controller.component';
+import { ToolbarControllerComponent } from './toolbar-controller/toolbar-controller.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { StencilControllerComponent } from './stencil-controller/stencil-control
     StencilControllerComponent,
     EditControllerComponent,
     FormBuilderControllerComponent,
+    ToolbarControllerComponent,
   ],
   imports: [
     BrowserModule,

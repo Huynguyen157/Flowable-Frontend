@@ -7,7 +7,7 @@
               <img [src]="flowableLogo" srcset="./assets/images/flowable-logo.png 1x, ./assets/images/flowable-logo@2x.png 2x">
           </a>
           <ul class="nav navbar-nav" id="main-nav" *ngIf="authenticated">
-            <li ngClass="{'active' : item.id == mainPage.id}" *ngFor="let item of mainNavigation">
+            <li [ngClass]="{'active' : item.id == mainPage.id}" *ngFor="let item of mainNavigation">
               <a (click)="setMainPage(item)">{{item.title | translate}}</a>
           </li>
           </ul>

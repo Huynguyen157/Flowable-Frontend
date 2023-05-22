@@ -1,6 +1,7 @@
 import { map } from '@uirouter/core';
 import FLOWABLE from 'src/assets/common/flowableURL';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -17,10 +18,9 @@ export class editorManager {
   loading!: boolean;
   canvasTracker: Map<any, any> = new Map();
   editor: any;
-  modelData: any;
+  modelData: any = new BehaviorSubject(null);
   shape: any;
   stencilData: any;
-
   constructor() {}
   initialize() {
     this.treeFilteredElements = ['SubProcess', 'CollapsedSubProcess'];
@@ -100,6 +100,9 @@ export class editorManager {
    */
   getBaseModelData() {
     return this.modelData;
+  }
+  setModel(value: any) {
+    this.modelData.next(value);
   }
   // edit(resourceId :any) {
   //     //Save the current canvas in the canvastracker if it is the root process.
