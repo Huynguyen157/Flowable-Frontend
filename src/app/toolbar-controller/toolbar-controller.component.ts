@@ -1,17 +1,31 @@
-import { Component, OnInit } from '@angular/core';
 import FLOWABLE from 'src/assets/common/flowableURL';
 import { defer, Observable, Subscription } from 'rxjs';
 import { editorManager } from '../editorManager.service';
+import { Injectable } from '@angular/core';
+import { Component, EventEmitter, Output, Inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { TranslateService } from '@ngx-translate/core';
+import { Location } from '@angular/common';
+@Injectable({ providedIn: 'root' })
 @Component({
   selector: 'app-toolbar-controller',
   templateUrl: './toolbar-controller.component.html',
   styleUrls: ['./toolbar-controller.component.css'],
 })
 export class ToolbarControllerComponent {
+  @Output() toolbarButtonClicked: EventEmitter<any> = new EventEmitter<any>();
   items: any = [];
   toolbarItems: any = [];
   secondaryItems: any = [];
-  constructor(private editService: editorManager) {
+  func: any;
+  constructor(
+    private editService: editorManager,
+    private http: HttpClient,
+    private dialog: MatDialog,
+    private translate: TranslateService,
+    private location: Location
+  ) {
     // this.editorFactory = defer();
   }
   ngOnInit() {
@@ -45,5 +59,43 @@ export class ToolbarControllerComponent {
       this.items.push(this.toolbarItems[i]);
       // }
     }
+  }
+  toolbarSecondaryButtonClicked(buttonIndex: number): void {
+    var buttonClicked = this.secondaryItems[buttonIndex];
+    var services = {
+      http: this.http,
+      dialog: this.dialog,
+      location: this.location,
+      editorManager: this.editService,
+    };
+    this.executeFunctionByName(buttonClicked.action, window, services);
+  }
+
+  buttonClicked(buttonIndex: number): void {
+    const buttonClicked = this.items[buttonIndex];
+    const services = {
+      http: this.http,
+      dialog: this.dialog,
+      translate: this.translate,
+    };
+    this.executeFunctionByName(buttonClicked.action, window, services);
+
+    const event = {
+      type: 'TOOLBAR_BUTTON_CLICKED',
+      toolbarItem: buttonClicked,
+    };
+    // Emit the event or perform other necessary operations
+  }
+  executeFunctionByName(
+    functionName: string,
+    context: any,
+    ...args: any[]
+  ): any {
+    const namespaces = functionName.split('.');
+    this.func = namespaces.pop();
+    for (let i = 0; i < namespaces.length; i++) {
+      context = context[namespaces[i]];
+    }
+    return context[this.func].apply(this, args);
   }
 }

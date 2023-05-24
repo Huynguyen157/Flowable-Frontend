@@ -3,16 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
-import { UpgradeModule} from '@angular/upgrade/static';
+import { UpgradeModule } from '@angular/upgrade/static';
 import { EditControllerComponent } from './edit-controller/edit-controller.component';
 import { FormBuilderControllerComponent } from './form-builder-controller/form-builder-controller.component';
-import { HttpClientModule , HttpClient} from '@angular/common/http';
-import { TranslateModule, TranslateLoader }from '@ngx-translate/core';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslationService } from './translation.service';
 import { StencilControllerComponent } from './stencil-controller/stencil-controller.component';
 import { ToolbarControllerComponent } from './toolbar-controller/toolbar-controller.component';
-
+import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import {
+  Location,
+  LocationStrategy,
+  PathLocationStrategy,
+} from '@angular/common';
+const routes: Routes = [
+  { path: 'editor/:modelId', component: EditControllerComponent },
+];
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,24 +36,32 @@ import { ToolbarControllerComponent } from './toolbar-controller/toolbar-control
     BrowserModule,
     AppRoutingModule,
     UpgradeModule,
+    RouterModule.forRoot(routes),
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: (http: HttpClient) => new TranslateHttpLoader(http, './assets/i18n/', '.json'),
-          deps: [HttpClient]
-      }
-   }),
-
+        provide: TranslateLoader,
+        useFactory: (http: HttpClient) =>
+          new TranslateHttpLoader(http, './assets/i18n/', '.json'),
+        deps: [HttpClient],
+      },
+    }),
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
+  exports: [RouterModule],
   providers: [
-    {provide: TranslationService,useClass: TranslationService}
+    Location,
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    { provide: TranslationService, useClass: TranslationService },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(private upgrade: UpgradeModule) {}
-  ngDoBootstrap(){
-    this.upgrade.bootstrap(document.body,['flowable-frontend'], {strictDi: true} )
+  ngDoBootstrap() {
+    this.upgrade.bootstrap(document.body, ['flowable-frontend'], {
+      strictDi: true,
+    });
   }
 }

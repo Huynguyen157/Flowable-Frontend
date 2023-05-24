@@ -10,8 +10,9 @@ import {
 import FLOWABLE from 'src/assets/common/flowableURL';
 import { editorManager } from '../editorManager.service';
 import ORYX from 'src/assets/common/config';
-import { any } from '@uirouter/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { defer, Observable, Subscription } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root',
 })
@@ -52,7 +53,10 @@ export class EditControllerComponent {
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
-    private editorManagers: editorManager
+    private editorManagers: editorManager,
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
   ngOnInit() {
     // this.editorFlowable();
@@ -75,6 +79,7 @@ export class EditControllerComponent {
   onResize(event: any) {
     event.target.innerWidth;
   }
+
   /* Helper method to fetch model from server (always needed) */
   //   fetchModel() {
 
@@ -84,17 +89,16 @@ export class EditControllerComponent {
   //     } else {
   //         modelUrl = FLOWABLE.URL.newModelInfo();
   //     }
-
-  //     $http({method: 'GET', url: modelUrl}).
-  //         success(function (data, status, headers, config) {
-  //             $rootScope.editor = new ORYX.Editor(data);
-  //             $rootScope.modelData = angular.fromJson(data);
-  //         console.log("stencil-controller 1")
-  //             $rootScope.editorFactory.resolve();
-  //         }).
-  //         error(function (data, status, headers, config) {
-  //             $location.path("/processes/");
-  //         });
+  //     this.http.get(modelUrl).subscribe(
+  //       (data: any) => {
+  //         this.editor = new ORYX.Editor(data);
+  //         this.modelData = JSON.parse(data);
+  //         this.editorFactory.resolve();
+  //       },
+  //       (error: any) => {
+  //         this.router.navigate(['/processes']);
+  //       }
+  //     );
   // }
 
   initScrollHandling() {

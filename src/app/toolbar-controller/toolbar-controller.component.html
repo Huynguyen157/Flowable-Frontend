@@ -1,22 +1,25 @@
-<div class="btn-group">
-  <div class="btn-toolbar pull-left">
-      <button id="{{item.id}}" title="{{item.title | translate}}"
-                *ngFor="let item of items "
-                [ngSwitch]="item.type"
-                class="btn btn-inverse" [ngClass]="{'separator': item.type == 'separator'}"
-                [attr.disable]="item.type == 'separator' || item.enabled == false"
-                ng-click="toolbarButtonClicked($index)">
-        <i *ngSwitchCase="'button'" [ngClass]="item.cssClass" class="toolbar-button" data-toggle="tooltip" title="{{item.title | translate}}"></i>
-          <div *ngSwitchCase="'separator'" [ngClass]="item.cssClass"></div>
+<div class="subheader editor-toolbar" id="editor-header">
+  <div class="btn-group">
+    <div class="btn-toolbar pull-left">
+      <button [id]="item.id" [title]="item.title | translate" *ngFor="let item of items" [ngSwitch]="item.type"
+        class="btn btn-inverse" [ngClass]="{'separator': item.type === 'separator'}"
+        [disabled]="item.type === 'separator' || item.enabled === false" (click)="buttonClicked(item)">
+        <i *ngSwitchCase="'button'" [ngClass]="item.cssClass" class="toolbar-button" data-toggle="tooltip"
+          [title]="item.title | translate"></i>
+        <div *ngSwitchCase="'separator'" [ngClass]="item.cssClass"></div>
       </button>
     </div>
-    </div>
-    <div class="btn-group pull-right" ng-show="!secondaryItems.length">
-      <div class="btn-toolbar pull-right" >
-      <button title="{{item.title | translate}}" *ngFor="let item of secondaryItems" [ngSwitch]="item.type" class="btn btn-inverse" [ngClass]="{'separator': item.type == 'separator'}"
-      [attr.disable]="item.type == 'separator'" ng-click="toolbarSecondaryButtonClicked($index)" id="{{item.id}}">
-        <i *ngSwitchCase="'button'" [ngClass]="item.cssClass" class="toolbar-button" data-toggle="tooltip" title="{{item.title | translate}}"></i>
-          <div *ngSwitchCase="'separator'" [ngClass]="item.cssClass"></div>
+  </div>
+  <div class="btn-group pull-right" *ngIf="!secondaryItems.length">
+    <div class="btn-toolbar pull-right">
+      <button [title]="item.title | translate" *ngFor="let item of secondaryItems" [ngSwitch]="item.type"
+        class="btn btn-inverse" [ngClass]="{'separator': item.type == 'separator'}"
+        [disabled]="item.type === 'separator' || item.enabled === false" (click)="toolbarSecondaryButtonClicked(item)"
+        [id]="item.id">
+        <i *ngSwitchCase="'button'" [ngClass]="item.cssClass" class="toolbar-button" data-toggle="tooltip"
+          [title]="item.title | translate"></i>
+        <div *ngSwitchCase="'separator'" [ngClass]="item.cssClass"></div>
       </button>
     </div>
-    </div>
+  </div>
+</div>
