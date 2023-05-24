@@ -1,24 +1,26 @@
-<div class="subheader editor-toolbar" id="editor-header">
-  	<app-toolbar-controller></app-toolbar-controller>
-  </div>
-  <div class="full">
-      <div class="row row-no-gutter">
-	      <div id="paletteHelpWrapper" class="col-xs-3">
-	      	<div class="stencils" id="paletteSection">
-			    <div ng-if="stencilItemGroups.length > 1">
-                    <div ng-repeat="group in stencilItemGroups">
+<app-toolbar-controller></app-toolbar-controller>
+<div class="full">
+  <div class="row row-no-gutter">
+    <div id="paletteHelpWrapper" class="col-xs-3">
+      <div class="stencils" id="paletteSection">
+        <div ng-if="stencilItemGroups.length > 1">
+          <div ng-repeat="group in stencilItemGroups">
 
-                        <ul ng-if="group.visible && group.items" class="stencil-group"  ng-class="{collapsed: !group.expanded, 'first': $first}">
-                            <li ng-container="'editor-app/partials/stencil-item-template.html?version=6'"></li>
-                        </ul>
+            <ul ng-if="group.visible && group.items" class="stencil-group"
+              ng-class="{collapsed: !group.expanded, 'first': $first}">
+              <li>
+                <app-stencil-controller></app-stencil-controller>
+              </li>
+            </ul>
 
-                        <div ng-if="!group.items" ng-container="'editor-app/partials/root-stencil-item-template.html?version=6'"></div>
-
-                    </div>
-			    </div>
-			    <div ng-if="stencilItemGroups.length == 1">
-	                <ul class="stencil-group">
-	                    <!-- <li ng-repeat="item in stencilItemGroups[0].paletteItems" class="stencil-item"
+            <div ng-if="!group.items">
+              <app-stencil-controller></app-stencil-controller>
+            </div>
+          </div>
+        </div>
+        <div ng-if="stencilItemGroups.length == 1">
+          <ul class="stencil-group">
+            <!-- <li ng-repeat="item in stencilItemGroups[0].paletteItems" class="stencil-item"
 	                         id="{{item.id}}"
 	                         title="{{item.description | translate}}"
 	                         ng-model="draggedElement"
@@ -29,60 +31,52 @@
                             <img ng-if="item.customIcon" ng-src="{{getImageUrl(item.icon)}}" width="16px;" height="16px;"/>
 	                        {{item.name | translate}}
 	                    </li> -->
-                    </ul>
-			     </div>
-		      </div>
-		      <div id="process-treeview-wrapper" ng-controller="ProcessNavigatorController">
-                    <div class="process-treeview-header">
-                        {{'GENERAL.OTHERS.PROCESS_NAVIGATOR' | translate}}
-                    </div>
-                    <div class="process-treeview-body" ng-show="isEditorReady">
-                        <!-- <div class="process-treeview-process-title" title="{{treeview.id}}" ng-class="{'current-process': treeview.current}" >
+          </ul>
+        </div>
+      </div>
+      <div id="process-treeview-wrapper" ng-controller="ProcessNavigatorController">
+        <div class="process-treeview-header">
+          {{'GENERAL.OTHERS.PROCESS_NAVIGATOR' | translate}}
+        </div>
+        <div class="process-treeview-body" ng-show="isEditorReady">
+          <!-- <div class="process-treeview-process-title" title="{{treeview.id}}" ng-class="{'current-process': treeview.current}" >
                             {{'GENERAL.OTHERS.PROCESS' | translate}}: {{treeview.name}}
                             <img ng-show="!treeview.current" ng-src="editor-app/images/pencil.png" class="pull-right" ng-click="edit(treeview.id)" />
                         </div> -->
-                        <ul class="process-treeview-list" ng-if="treeview.children">
-                            <li ng-repeat="child in treeview.children" ng-container="'editor-app/partials/process-tree-list.html?version=4'">
-                            </li>
-                        </ul>
-                        <div ng-if="!treeview.children || treeview.children.length == 0" style="padding-left: 5px;">
-                            {{'GENERAL.OTHERS.NO_STRUCTURAL_ELEMENTS_USED' | translate}}
-                        </div>
-                    </div>
-              </div>
-              <div id="paletteSectionFooter">
-                  <i class="glyphicon glyphicon-chevron-left"></i>
-              </div>
+          <ul class="process-treeview-list" ng-if="treeview.children">
+            <li ng-repeat="child in treeview.children"
+              ng-container="'editor-app/partials/process-tree-list.html?version=4'">
+            </li>
+          </ul>
+          <div ng-if="!treeview.children || treeview.children.length == 0" style="padding-left: 5px;">
+            {{'GENERAL.OTHERS.NO_STRUCTURAL_ELEMENTS_USED' | translate}}
           </div>
-	      <div id="contentCanvasWrapper">
-                <div id="paletteSectionOpen" class="hidden">
-                    <i class="glyphicon glyphicon-chevron-right"></i>
-                </div>
-                <div id="canvasHelpWrapper" class="col-xs-12">
-                    <div class="canvas-wrapper" id="canvasSection"
-                         ng-model="droppedElement"
-                         data-drop="true"
-                         data-jqyoui-options
-                         jqyoui-droppable="{onDrop:'dropCallback',onOver: 'overCallback', onOut: 'outCallback'}">
-                        <div class="canvas-message" id="model-modified-date"></div>
-                        <div class="Oryx_button"
-                             id="delete-button"
-                             title="{{'BUTTON.ACTION.DELETE.TOOLTIP' | translate}}"
-                             ng-click="deleteShape()"
-                             style="display:none">
-                            <img src="editor-app/images/delete.png"/>
-                        </div>
-                        <div class="Oryx_button"
-                             id="morph-button"
-                             title="{{'BUTTON.ACTION.MORPH.TOOLTIP' | translate}}"
-                             ng-click="morphShape()"
-                             style="display:none">
-                            <img src="editor-app/images/wrench.png"/>
-                        </div>
-                        <div class="Oryx_button" id="edit-button" style="display:none" ng-click="editShape()">
-                            <img src="editor-app/images/pencil.png"/>
-                        </div>
-                        <!-- <div class="Oryx_button"
+        </div>
+      </div>
+      <div id="paletteSectionFooter">
+        <i class="glyphicon glyphicon-chevron-left"></i>
+      </div>
+    </div>
+    <div id="contentCanvasWrapper">
+      <div id="paletteSectionOpen" class="hidden">
+        <i class="glyphicon glyphicon-chevron-right"></i>
+      </div>
+      <div id="canvasHelpWrapper" class="col-xs-12">
+        <div class="canvas-wrapper" id="canvasSection" ng-model="droppedElement" data-drop="true" data-jqyoui-options
+          jqyoui-droppable="{onDrop:'dropCallback',onOver: 'overCallback', onOut: 'outCallback'}">
+          <div class="canvas-message" id="model-modified-date"></div>
+          <div class="Oryx_button" id="delete-button" title="{{'BUTTON.ACTION.DELETE.TOOLTIP' | translate}}"
+            ng-click="deleteShape()" style="display:none">
+            <img src="editor-app/images/delete.png" />
+          </div>
+          <div class="Oryx_button" id="morph-button" title="{{'BUTTON.ACTION.MORPH.TOOLTIP' | translate}}"
+            ng-click="morphShape()" style="display:none">
+            <img src="editor-app/images/wrench.png" />
+          </div>
+          <div class="Oryx_button" id="edit-button" style="display:none" ng-click="editShape()">
+            <img src="editor-app/images/pencil.png" />
+          </div>
+          <!-- <div class="Oryx_button"
                              ng-repeat="item in quickMenuItems"
                              id="{{item.id}}"
                              title="{{item.description | translate}}"
@@ -94,13 +88,13 @@
                              style="display:none">
                             <img ng-src="editor-app/stencilsets/{{getStencilSetName()}}/icons/{{item.icon}}"/>
                         </div> -->
-                    </div>
-                </div>
-                <div id="propertiesHelpWrapper" class="col-xs-12">
-                    <div class="propertySection" id="propertySection" ng-class="{collapsed: propertyWindowState.collapsed}">
-                        <div class="selected-item-section">
-                            <div class="clearfix">
-                                <!-- <div class="pull-right" ng-if="selectedItem.auditData.createDate">
+        </div>
+      </div>
+      <div id="propertiesHelpWrapper" class="col-xs-12">
+        <div class="propertySection" id="propertySection" ng-class="{collapsed: propertyWindowState.collapsed}">
+          <div class="selected-item-section">
+            <div class="clearfix">
+              <!-- <div class="pull-right" ng-if="selectedItem.auditData.createDate">
                                     <strong>{{'ELEMENT.DATE_CREATED' | translate}}: </strong>
                                     {{selectedItem.auditData.createDate}}
                                 </div>
@@ -108,37 +102,35 @@
                                     <strong>{{'ELEMENT.AUTHOR' | translate}}: </strong>
                                     {{selectedItem.auditData.author}}
                                 </div> -->
-                                <div class="selected-item-title">
-                                    <a ng-click="propertyWindowState.toggle()">
-                                        <i class="glyphicon"
-                                           ng-class="{'glyphicon-chevron-right': propertyWindowState.collapsed, 'glyphicon-chevron-down': !propertyWindowState.collapsed}"></i>
-                                        <!-- <span ng-show="selectedItem.title != undefined && selectedItem.title != null && selectedItem.title.length > 0">{{selectedItem.title}}</span>
+              <div class="selected-item-title">
+                <a ng-click="propertyWindowState.toggle()">
+                  <i class="glyphicon"
+                    ng-class="{'glyphicon-chevron-right': propertyWindowState.collapsed, 'glyphicon-chevron-down': !propertyWindowState.collapsed}"></i>
+                  <!-- <span ng-show="selectedItem.title != undefined && selectedItem.title != null && selectedItem.title.length > 0">{{selectedItem.title}}</span>
                                         <span ng-show="!selectedItem || selectedItem.title == undefined || selectedItem.title == null || selectedItem.title.length == 0">{{modelData.name}}</span> -->
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="selected-item-body">
-                                <div>
-                                    <div class="property-row" ng-repeat="property in selectedItem.properties"
-                                         ng-click="propertyClicked($index)" ng-class="{'clear' : $index%2 == 0}">
-                                        <!-- <span class="title" ng-if="!property.hidden" title="{{ property.description | translate}}">{{ property.title | translate }}&nbsp;:</span>
-                                        <span class="title-removed" ng-if="property.hidden"><i>{{ property.title }}&nbsp;({{'PROPERTY.REMOVED' | translate}})&nbsp;:</i></span> -->
-                                        <span class="value">
-	                                    <ng-container
-                                                src="getPropertyTemplateUrl($index)"
-                                                ng-if="!property.hasReadWriteMode"></ng-container>
-	                                    <ng-container src="getPropertyReadModeTemplateUrl($index)"
-                                                    ng-if="property.hasReadWriteMode && property.mode == 'read'"></ng-container>
-	                                    <ng-container src="getPropertyWriteModeTemplateUrl($index)"
-                                                    ng-if="property.hasReadWriteMode && property.mode == 'write'"></ng-container>
-	                                </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </a>
+              </div>
             </div>
+            <div class="selected-item-body">
+              <div>
+                <div class="property-row" ng-repeat="property in selectedItem.properties"
+                  ng-click="propertyClicked($index)" ng-class="{'clear' : $index%2 == 0}">
+                  <!-- <span class="title" ng-if="!property.hidden" title="{{ property.description | translate}}">{{ property.title | translate }}&nbsp;:</span>
+                                        <span class="title-removed" ng-if="property.hidden"><i>{{ property.title }}&nbsp;({{'PROPERTY.REMOVED' | translate}})&nbsp;:</i></span> -->
+                  <span class="value">
+                    <ng-container src="getPropertyTemplateUrl($index)"
+                      ng-if="!property.hasReadWriteMode"></ng-container>
+                    <ng-container src="getPropertyReadModeTemplateUrl($index)"
+                      ng-if="property.hasReadWriteMode && property.mode == 'read'"></ng-container>
+                    <ng-container src="getPropertyWriteModeTemplateUrl($index)"
+                      ng-if="property.hasReadWriteMode && property.mode == 'write'"></ng-container>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-
+  </div>
+</div>

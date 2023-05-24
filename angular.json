@@ -29,13 +29,13 @@
             ],
             "styles": [
               "src/libs/bootstrap_3.1.1/css/bootstrap.min.css",
-              "src/styles.css",
+              "src/editor-app/css/style.css",
               "src/libs/ui-grid_3.0.0/ui-grid.css",
               "src/libs/handsontable_0.31.2/handsontable.full.min.css",
               "src/libs/bootstrap-tour_0.9.1/bootstrap-tour.min.css",
               "src/libs/angular-spectrum-colorpicker_1.0.13/spectrum.css",
               "src/editor-app/editor/css/editor.css",
-              "src/editor-app/css/style.css",
+
               "src/styles/common/style.css",
               "src/styles/common/style-retina.css",
               "src/styles/style-editor.css"
@@ -242,14 +242,13 @@
             ],
             "styles": [
               "src/libs/bootstrap_3.1.1/css/bootstrap.min.css",
-              "src/styles.css",
+              "src/editor-app/css/style.css",
               "src/libs/ui-grid_3.0.0/ui-grid.css",
               "src/libs/handsontable_0.31.2/handsontable.full.min.css",
-
               "src/libs/bootstrap-tour_0.9.1/bootstrap-tour.min.css",
               "src/libs/angular-spectrum-colorpicker_1.0.13/spectrum.css",
               "src/editor-app/editor/css/editor.css",
-              "src/editor-app/css/style.css",
+
               "src/styles/common/style.css",
               "src/styles/common/style-retina.css",
               "src/styles/style-editor.css"

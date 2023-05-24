@@ -2,10 +2,11 @@ import FLOWABLE from 'src/assets/common/flowableURL';
 import { defer, Observable, Subscription } from 'rxjs';
 import { editorManager } from '../editorManager.service';
 import { Injectable } from '@angular/core';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { TranslateService } from '@ngx-translate/core';
+import { Location } from '@angular/common';
 @Injectable({ providedIn: 'root' })
 @Component({
   selector: 'app-toolbar-controller',
@@ -22,7 +23,8 @@ export class ToolbarControllerComponent {
     private editService: editorManager,
     private http: HttpClient,
     private dialog: MatDialog,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private location: Location
   ) {
     // this.editorFactory = defer();
   }
@@ -58,6 +60,17 @@ export class ToolbarControllerComponent {
       // }
     }
   }
+  toolbarSecondaryButtonClicked(buttonIndex: number): void {
+    var buttonClicked = this.secondaryItems[buttonIndex];
+    var services = {
+      http: this.http,
+      dialog: this.dialog,
+      location: this.location,
+      editorManager: this.editService,
+    };
+    this.executeFunctionByName(buttonClicked.action, window, services);
+  }
+
   buttonClicked(buttonIndex: number): void {
     const buttonClicked = this.items[buttonIndex];
     const services = {

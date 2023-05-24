@@ -13,6 +13,13 @@ import { TranslationService } from './translation.service';
 import { StencilControllerComponent } from './stencil-controller/stencil-controller.component';
 import { ToolbarControllerComponent } from './toolbar-controller/toolbar-controller.component';
 import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDialogModule } from '@angular/material/dialog';
+import {
+  Location,
+  LocationStrategy,
+  PathLocationStrategy,
+} from '@angular/common';
 const routes: Routes = [
   { path: 'editor/:modelId', component: EditControllerComponent },
 ];
@@ -39,9 +46,15 @@ const routes: Routes = [
         deps: [HttpClient],
       },
     }),
+    BrowserAnimationsModule,
+    MatDialogModule,
   ],
   exports: [RouterModule],
-  providers: [{ provide: TranslationService, useClass: TranslationService }],
+  providers: [
+    Location,
+    { provide: LocationStrategy, useClass: PathLocationStrategy },
+    { provide: TranslationService, useClass: TranslationService },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
