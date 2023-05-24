@@ -11,7 +11,7 @@
       </button>
     </div>
     </div>
-    <div class="btn-group pull-right" ng-show="!secondaryItems.length">
+    <div class="btn-group pull-right" *ngIf="!secondaryItems.length">
       <div class="btn-toolbar pull-right" >
       <button title="{{item.title | translate}}" *ngFor="let item of secondaryItems" [ngSwitch]="item.type" class="btn btn-inverse" [ngClass]="{'separator': item.type == 'separator'}"
       [attr.disable]="item.type == 'separator'" ng-click="toolbarSecondaryButtonClicked($index)" id="{{item.id}}">
