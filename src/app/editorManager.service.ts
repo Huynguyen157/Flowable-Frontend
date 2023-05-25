@@ -2,7 +2,7 @@ import { map } from '@uirouter/core';
 import FLOWABLE from 'src/assets/common/flowableURL';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-
+import ORYX from 'src/assets/common/config';
 @Injectable({
   providedIn: 'root',
 })
@@ -21,7 +21,7 @@ export class editorManager {
   modelData: any = new BehaviorSubject(null);
   shape: any;
   stencilData: any;
-  constructor() {}
+
   initialize() {
     this.treeFilteredElements = ['SubProcess', 'CollapsedSubProcess'];
     this.canvasTracker = new Map();
@@ -104,34 +104,35 @@ export class editorManager {
   setModel(value: any) {
     this.modelData.next(value);
   }
-  // edit(resourceId :any) {
-  //     //Save the current canvas in the canvastracker if it is the root process.
-  //     this.syncCanvasTracker();
+  edit(resourceId: any) {
+    //Save the current canvas in the canvastracker if it is the root process.
+    // this.syncCanvasTracker();
 
-  //     this.loading = true;
+    this.loading = true;
 
-  //     let shapes = this.getCanvas().getChildren();
-  //     shapes.each(function (shape: any) {
-  //         this.editor.deleteShape(shape);
-  //     }.bind(this));
+    let shapes = this.getCanvas().getChildren();
 
-  //     shapes = this.canvasTracker.get(resourceId);
-  //     if(!shapes){
-  //         shapes = JSON.stringify([]);
-  //     }
+    // shapes.each((shape: any) => {
+    //     this.editor.deleteShape(shape);
+    // }.bind(this));
 
-  //     this.editor.loadSerialized({
-  //         childShapes: shapes
-  //     });
+    shapes = this.canvasTracker.get(resourceId);
+    if (!shapes) {
+      shapes = JSON.stringify([]);
+    }
 
-  //     this.getCanvas().update();
+    this.editor.loadSerialized({
+      childShapes: shapes
+    });
 
-  //     this.current = resourceId;
+    this.getCanvas().update();
 
-  //     this.loading = false;
-  //     FLOWABLE.eventBus.dispatch("EDITORMANAGER-EDIT-ACTION", {});
-  //     FLOWABLE.eventBus.dispatch(FLOWABLE.eventBus.EVENT_TYPE_UNDO_REDO_RESET, {});
-  // }
+    this.current = resourceId;
+
+    this.loading = false;
+    FLOWABLE.eventBus.dispatch("EDITORMANAGER-EDIT-ACTION", {});
+    FLOWABLE.eventBus.dispatch(FLOWABLE.eventBus.EVENT_TYPE_UNDO_REDO_RESET, {});
+  }
   // getTree() {
   //     //build a tree of all subprocesses and there children.
   //     let result = new Map();
